@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 public class DiceService {
 
     private final DiceSimulationService diceSimulationService;
+    private final DiceSimulationStoreService diceSimulationStoreService;
 
     public Map<Long, Long> runAndStoreDiceSimulation(
         final long diceNumber,
         final long diceSides,
         final long rollsNumber
     ) {
-        return diceSimulationService.runDiceSimulation(diceNumber, diceSides, rollsNumber);
+        Map<Long, Long> simulationResults = diceSimulationService.runDiceSimulation(diceNumber, diceSides, rollsNumber);
+        diceSimulationStoreService.storeSimulation(diceNumber, diceSides, rollsNumber, simulationResults);
+
+        return simulationResults;
     }
 }
