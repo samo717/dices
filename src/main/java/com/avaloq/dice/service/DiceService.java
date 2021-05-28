@@ -1,5 +1,7 @@
 package com.avaloq.dice.service;
 
+import com.avaloq.dice.controller.model.SimulationStats;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,5 +22,9 @@ public class DiceService {
         diceSimulationStoreService.storeSimulation(diceNumber, diceSides, rollsNumber, simulationResults);
 
         return simulationResults;
+    }
+
+    public List<SimulationStats> getStats() {
+        return diceSimulationStoreService.getStats();
     }
 }

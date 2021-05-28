@@ -1,7 +1,10 @@
 package com.avaloq.dice.controller;
 
 import com.avaloq.dice.controller.model.SimulationResponse;
+import com.avaloq.dice.controller.model.SimulationStats;
+import com.avaloq.dice.controller.model.SimulationStatsResponse;
 import com.avaloq.dice.service.DiceService;
+import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +38,19 @@ public class DiceController {
                 .setDiceSides(diceSides)
                 .setRollsNumber(rollsNumber)
                 .setSumCounts(sumCounts),
+            HttpStatus.OK
+        );
+    }
+
+    @PostMapping(
+        value = "/dice/stats",
+        produces = {"application/json"}
+    )
+    public ResponseEntity<SimulationStatsResponse> getStats() {
+        List<SimulationStats> statsList = diceService.getStats();
+        return new ResponseEntity<>(
+            new SimulationStatsResponse()
+                .setStats(statsList),
             HttpStatus.OK
         );
     }
